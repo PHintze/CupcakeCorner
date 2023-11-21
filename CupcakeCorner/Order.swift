@@ -37,10 +37,29 @@ class Order: Codable {
     var extraFrosting = false
     var addSprinkles = false
     
-    var name = ""
-    var streetAddress = ""
-    var city = ""
-    var zip = ""
+    var name: String {
+        didSet {
+            UserDefaults.standard.setValue(name, forKey: "name")
+            }
+        }
+    
+    var streetAddress: String {
+        didSet {
+            UserDefaults.standard.setValue(streetAddress, forKey: "streetAddress")
+            }
+        }
+    
+    var city: String {
+        didSet {
+            UserDefaults.standard.setValue(city, forKey: "city")
+            }
+        }
+    
+    var zip: String {
+        didSet {
+            UserDefaults.standard.setValue(zip, forKey: "zip")
+            }
+        }
     
     var hasValidAddress: Bool {
         if name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || streetAddress.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || city.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || zip.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
@@ -67,5 +86,11 @@ class Order: Codable {
         }
         
         return cost
+    }
+    init() {
+        name = UserDefaults.standard.string(forKey: "name") ?? ""
+        streetAddress = UserDefaults.standard.string(forKey: "streetAddress") ?? ""
+        city = UserDefaults.standard.string(forKey: "city") ?? ""
+        zip = UserDefaults.standard.string(forKey: "zip") ?? ""
     }
 }
